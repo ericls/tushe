@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% import('macro.html') as macro %}
+
+{% block inside_wall %}
+    {{ macro.image_list(images, wall_title) }}
+{% endblock %}

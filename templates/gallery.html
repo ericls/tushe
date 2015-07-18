@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block inside_wall %}
+    <h3 class="wall-title clearfix">图册：{{ gallery.title }}</h3>
+    {% for image in gallery.images %}
+        <a href="{{ url_for('.image', iid=image.iid) }}">
+            <img class="main-img" src="{{ url_for('.display_image', iid=image.iid) }}" alt="{{ image.title }}"/>
+        </a>
+        <div class="img-description">
+            {% if image.user == current_user %}
+                <a style="color: red;" href="{{ url_for('.remove_image_from_gallery', gid=gallery.id, iid=image.id) }}">从相册移除</a>
+            {% endif %}
+            {{ image.description }}
+            {% if image.tags %}
+                {% for tag in image.tags %}
+                    <a href="{{ url_for('.tag_view', tag=tag) }}">{{ tag }}</a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+    <h3 class="wall-title clearfix">评论</h3>
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="gallery-{{ gallery.gid }}" data-title="{{ gallery.title }}"></div>
+    <!-- 多说评论框 end -->
+{% endblock %}
+
+{% block footer_ext %}
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+        var duoshuoQuery = {short_name:"{{ SETTINGS.duoshuo_short_name }}"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0]
+            || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+{% endblock %}

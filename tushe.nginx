@@ -1,0 +1,35 @@
+server {
+
+    set $root_path /data/tushe/;
+
+	listen       80;
+	server_name  example.org;
+
+	location /static/ {
+		root $root_path;
+		expires 30d;
+		add_header Cache-Control "public";
+	}
+
+	location / {
+		uwsgi_pass      127.0.0.1:3333;
+		include         uwsgi_params;
+		uwsgi_param     SCRIPT_NAME '';
+	}
+
+	location ~ ^/(p|thumb)/ {
+
+
+		# uwsgi_cache related settings are recommended.
+		# See: http://nginx.org/en/docs/http/ngx_http_uwsgi_module.html#uwsgi_cache
+
+		uwsgi_pass      127.0.0.1:3333;
+		uwsgi_hide_header	Set-Cookie;
+		include         uwsgi_params;
+		uwsgi_param     SCRIPT_NAME '';
+		expires 30d;
+		add_header Cache-Control "public";
+	}
+}
+
+

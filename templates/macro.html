@@ -1,0 +1,88 @@
+{% macro image_list(images, wall_title) -%}
+    <h3 class="wall-title clearfix">{{ wall_title }}</h3>
+    <div class="clearfix"></div>
+    {% for image in images.items %}
+        <div class="wall-thumb">
+            <a href="{{ url_for('.image', iid=image.iid) }}">
+                <img src="{{ url_for('.display_thumbnail', iid=image.iid) }}" alt="{{ image.title }}"/>
+            </a>
+            <div class="thumb-cover">
+                {{ image.title }}
+            </div>
+            <div class="thumb-hover">
+                {{ image.description }}
+            </div>
+        </div>
+    {% endfor %}
+    <div class="clearfix"></div>
+    {{ pager(images, view_name=request.endpoint, **kwargs) }}
+{%- endmacro %}
+
+
+{% macro gallery_list(galleries, wall_title) -%}
+    <h3 class="wall-title clearfix">{{ wall_title }}</h3>
+    <div class="clearfix"></div>
+    {% for gallery in galleries %}
+        {% if gallery.images %}
+        <div class="wall-thumb">
+            <a href="{{ url_for('.gallery_view', gid=gallery.gid) }}">
+                <img src="{{ url_for('.display_thumbnail', iid=gallery.images[0].iid) }}" alt="{{ gallery }}"/>
+            </a>
+            <div class="thumb-cover">
+                {{ gallery.title }}[{{ gallery.images.count() }}P]
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    <div class="clearfix"></div>
+{%- endmacro %}
+
+
+{% macro image_list_without_page(images, wall_title) -%}
+    <h3 class="wall-title clearfix">{{ wall_title }}</h3>
+    <div class="clearfix"></div>
+    {% for image in images %}
+        <div class="wall-thumb">
+            <a href="{{ url_for('.image', iid=image.iid) }}">
+                <img src="{{ url_for('.display_thumbnail', iid=image.iid) }}" alt="{{ image.title }}"/>
+            </a>
+            <div class="thumb-cover">
+                {{ image.title }}
+            </div>
+            <div class="thumb-hover">
+                {{ image.description }}
+            </div>
+        </div>
+    {% endfor %}
+    <div class="clearfix"></div>
+{%- endmacro %}
+
+{% macro pager(objects, view_name) %}
+    <div class="pager">
+        {% if objects.has_prev %}
+            {% if objects.prev_num == 1 %}
+                <a class="page" href="{{ url_for(view_name, **kwargs) }}">上一页</a>
+            {% else %}
+                <a class="page" href="{{ url_for(view_name, page=objects.prev_num, **kwargs) }}">上一页</a>
+            {% endif %}
+        {% endif %}
+        {% for page in objects.iter_pages() %}
+            {% if page %}
+                {% if page != objects.page %}
+                    {% if page == 1 %}
+                        <a class="page" href="{{ url_for(view_name, **kwargs) }}">{{ page }}</a>
+                    {% else %}
+                        <a class="page" href="{{ url_for(view_name, page=page, **kwargs) }}">{{ page }}</a>
+                    {% endif %}
+                {% else %}
+                    <a  class="active page">{{ page }}</a>
+                {% endif %}
+            {% else %}
+                <spa>...</spa>
+            {% endif %}
+        {% endfor %}
+        {% if objects.has_next %}
+            <a class="page" href="{{ url_for(view_name, page=objects.next_num, **kwargs)}}">下一页</a>
+        {% endif %}
+    </div>
+{% endmacro %}

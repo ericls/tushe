@@ -1,0 +1,8 @@
+# Copy to the end of /etc/supervisord.conf
+[program:tushe]
+command = /data/Envs/tushe/bin/uwsgi --ini /data/tushe/uwsgi.ini
+stopsignal=QUIT
+autostart=true
+autorestart=true
+stdout_logfile=/data/logs/tushe/access.log
+redirect_stderr=true

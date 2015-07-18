@@ -1,0 +1,15 @@
+{% extends 'form-narrow.html' %}
+
+{% block form_title %}
+    创建相册
+{% endblock %}
+
+{% block form %}
+    <form action="" class="user-form login-form" method="post">
+        <div class="input-field">
+            <label for="title">相册名称</label>
+            <input type="text" name="title" id="title" >
+        </div>
+        <input type="submit" value="创建">
+    </form>
+{% endblock %}

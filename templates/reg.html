@@ -1,0 +1,23 @@
+{% extends 'form-narrow.html' %}
+
+{% block form_title %}
+    注册
+{% endblock %}
+
+{% block form %}
+    <form action="" class="user-form login-form" method="post">
+        <div class="input-field">
+            <label for="username">用户名</label>
+            <input type="text" name="username" id="username" >
+        </div>
+        <div class="input-field">
+            <label for="email">E-Mail</label>
+            <input type="email" name="email" id="email" >
+        </div>
+        <div class="input-field">
+            <label for="password">密码</label>
+            <input type="password" name="password" id="password"><br>
+        </div>
+        <input type="submit" value="注册">
+    </form>
+{% endblock %}

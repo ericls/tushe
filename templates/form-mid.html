@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div class="uploader">
+        <form action="#" id="drop" class="dropzone">
+        </form>
+    </div>
+    <section class="wall wall-mif">
+        <h3 class="wall-title clearfix">
+            {% block form_title %}
+
+            {% endblock %}
+        </h3>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="text-{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        {% block form %}
+        {% endblock %}
+
+    </section>
+{% endblock %}

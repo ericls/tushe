@@ -1,0 +1,32 @@
+{% extends 'form-mid.html' %}
+
+{% block form_title %}
+    添加图片
+{% endblock %}
+
+{% block form %}
+    <form action="#" id="drop-gallery" class="dropzone">
+    </form>
+{% endblock %}
+
+{% block footer_ext %}
+    <script>
+        $(function() {
+            // Now that the DOM is fully loaded, create the dropzone, and setup the
+            // event listeners
+            drop_settings = {
+                uploadMultiple: false,
+                url: "{{ url_for('.gallery_drop', gid=gallery.gid) }}",
+                acceptedFiles: "image/*",
+                paramName: "file",
+                dictDefaultMessage:"<i class=\"fa fa-cloud-upload fa-3x fa-green\"></i><br>点击 或 拖放图片到这里添加",
+                dictFallbackMessage:"你的浏览器不支持拖放上传"
+            };
+            var dz = new Dropzone("#drop-gallery",drop_settings);
+            dz.on('queuecomplete', function(file, response){
+                console.log(response);
+                window.location.href = window.location.protocol + '//' + window.location.host + '{{ url_for('.gallery_view', gid=gallery.gid) }}';
+            });
+        });
+    </script>
+{% endblock %}
