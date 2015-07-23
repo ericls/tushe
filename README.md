@@ -1,8 +1,9 @@
 # TUSHE
 
 演示：http://tushe.org
+
 图社（TUSHE）是基于 FLask 的图床和图片浏览网站源码，也可以用作套图网站。网站采用 Mongodb 作为数据库，图片也储存于 GridFS。
-采用 lask—Login 做用户认证，采用 Flask-Admin 做后台。
+采用 Flask—Login 做用户认证，采用 Flask-Admin 做后台。
 
 还用到了 Flask-Mongoengine, Flask-Bcrypt 等。见`requirements.txt`。
 
