@@ -13,7 +13,16 @@
 - 支持微信公众平台接口，用微信上传图片（需要认证的订阅号或者服务号）。
 
 
-## 部署
+## Docker 自动部署
+运行 repo 里面的 docker-run.sh，或者直接运行如下命令
+
+`bash -c "$(wget -O - https://raw.githubusercontent.com/ericls/tushe/master/docker-run.sh)"`
+
+会提示输入端口号，请输入一个非常用的端口
+
+运行完成之后， 会提示 nginx 的配置，照着配置就可以了。
+
+## 常规部署
 
 ### 要求
 
